@@ -2,7 +2,7 @@
 This is a simple web application built using HTML, CSS, and JavaScript, as well as a backend server using JSON-server, which allows users to vote for their favorite animal among a list of 5 characters. The table displays the animals' ID, name, picture, and number of votes. Users can also add new animals to the list and reset the vote counts to zero.
 
 //Installation and Setup --> -->
-Clone the repository using git clone https://github.com/yourusername/flataculties.git
+Clone the repository using git clone git@github.com:lewis-ma/phase-1-week-2-code-challenge.git
 Navigate to the project directory using cd flataculties
 Install the required dependencies using npm install
 Start the JSON-server using npm run server
