@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Animal Characters-vote the cutest animal</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <h1>Animal Characters</h1>
+    <h2>vote the cutest animal</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Character</th>
+          <th>Picture</th>
+          <th>vote</th>
+          <th>Upvotes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Mr. Cute</td>
+          <td><img src="https://thumbs.gfycat.com/EquatorialIckyCat-max-1mb.gif" alt="Mr. Cute"></td>
+          <td>0</td>
+          <td><button class="vote-btn">Vote</button></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Mx. Monkey</td>
+          <td><img src="https://thumbs.gfycat.com/FatalInnocentAmericanshorthair-max-1mb.gif" alt="Mx. Monkey"></td>
+          <td>0</td>
+          <td><button class="vote-btn">Vote</button></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Ms. Zebra</td>
+          <td><img src="https://media2.giphy.com/media/20G9uNqE3K4dRjCppA/source.gif" alt="Ms. Zebra"></td>
+          <td><button class="vote-btn">Vote</button></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Dr. Lion</td>
+          <td><img src="http://bestanimations.com/Animals/Mammals/Cats/Lions/animated-lion-gif-11.gif" alt="Dr. Lion"></td>
+          <td><button class="vote-btn">Vote</button></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Mme. Panda</td>
+          <td><img src="https://media.giphy.com/media/ALalVMOVR8Qw/giphy.gif" alt="Mme. Panda"></td>
+          <td><button class="vote-btn">Vote</button></td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="form-container">
+      <h2>Add a new animal character</h2>
+      <form id="add-form">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="image">Image URL:</label>
+          <input type="text" id="image" name="image" required>
+        </div>
+        <button type="submit">Add Character</button>
+        <button type="reset">Reset Form</button>
+      </form>
+    </div>
+    
+    <script src="script.js"></script>
+  </body>
+</html>

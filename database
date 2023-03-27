@@ -1,0 +1,52 @@
+// Define constants and variables
+const API_URL = 'http://localhost:3000/animals';
+const animalsTable = document.getElementById('animalsTable');
+const resetButton = document.getElementById('resetButton');
+const addAnimalForm = document.getElementById('addAnimalForm');
+
+// Fetch data from API and update table
+function updateTable() {
+  fetch(API_URL)
+    .then(response => response.json())
+    .then(data => {
+      // Sort animals by votes in descending order
+      data.sort((a, b) => b.votes - a.votes);
+
+      // Update table with data
+      animalsTable.querySelector('tbody').innerHTML = '';
+      data.forEach(animal => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${animal.id}</td>
+          <td>${animal.name}</td>
+          <td><img src="${animal.picture}" alt="${animal.name}" width="100"></td>
+          <td>${animal.votes}</td>
+        `;
+        animalsTable.querySelector('tbody').appendChild(row);
+      });
+    })
+    .catch(error => console.error(error));
+}
+
+// Add event listeners
+resetButton.addEventListener('click', event => {
+  event.preventDefault();
+  fetch(API_URL, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ votes: 0 })
+  })
+    .then(() => updateTable())
+    .catch(error => console.error(error));
+});
+
+addAnimalForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const animalName = addAnimalForm.elements.animalName.value;
+  const animalPicture = addAnimalForm.elements.animalPicture.value;
+  fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: animalName, picture: animalPicture, votes: 0 })
+  })
+    .
