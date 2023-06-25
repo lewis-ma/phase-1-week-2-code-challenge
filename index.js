@@ -1,100 +1,56 @@
-const characterTable = document.getElementById("character-table");
-const resetButton = document.getElementById("reset-button");
-const addButton = document.getElementById("add-button");
-const nameInput = document.getElementById("name-input");
-const imageInput = document.getElementById("image-input");
+// Retrieve necessary elements from the DOM
+const voteButtons = document.querySelectorAll(".vote-btn");
+const addCharacterForm = document.getElementById("addCharacterForm");
+const resetFormBtn = document.getElementById("resetFormBtn");
+const animalTable = document.getElementById("animalTable");
 
-// Function to retrieve character data from the JSON server
-function getCharacters() {
-  fetch("http://localhost:3000/characters")
-    .then(response => response.json())
-    .then(data => {
-      // Sort the characters in descending order based on their number of votes
-      data.characters.sort((a, b) => b.votes - a.votes);
-      
-      // Create the table rows for each character
-      let tableRows = "";
-      data.characters.forEach(character => {
-        tableRows += `
-          <tr>
-            <td>${character.id}</td>
-            <td>${character.name}</td>
-            <td><img src="${character.image}" alt="${character.name}" /></td>
-            <td>${character.votes}</td>
-          </tr>
-        `;
-      });
+// Add event listeners to vote buttons
+voteButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const countCell = button.parentNode.previousElementSibling;
+    const count = parseInt(countCell.textContent);
+    countCell.textContent = count + 1;
+    console.log(count);
+  });
+});
 
-      // Update the table with the new data
-      characterTable.innerHTML = `
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Picture</th>
-            <th>Votes</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows}
-        </tbody>
-      `;
-    })
-    .catch(error => console.error(error));
-}
+// Add event listener to the form submission
+addCharacterForm.addEventListener("submit", (e) => {
+  e.preventDefault(); // Prevent form submission
 
-// Function to reset the votes to 0 for all characters
-function resetVotes() {
-  fetch("http://localhost:3000/characters", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      characters: [
-        { id: 1, votes: 0 },
-        { id: 2, votes: 0 },
-        { id: 3, votes: 0 },
-        { id: 4, votes: 0 },
-        { id: 5, votes: 0 }
-      ]
-    })
-  })
-    .then(() => getCharacters())
-    .catch(error => console.error(error));
-}
-
-// Function to add a new character
-function addCharacter() {
+  // Retrieve form input values
+  const nameInput = document.getElementById("name");
+  const imageInput = document.getElementById("image");
   const name = nameInput.value;
   const image = imageInput.value;
-  
-  if (name && image) {
-    fetch("http://localhost:3000/characters", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: name,
-        image: image,
-        votes: 0
-      })
-    })
-      .then(() => {
-        nameInput.value = "";
-        imageInput.value = "";
-        getCharacters();
-      })
-      .catch(error => console.error(error));
-  }
-}
 
-// Event listener for the reset button
-resetButton.addEventListener("click", resetVotes);
+  // Create a new row for the added character
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `
+    <td>${animalTable.rows.length}</td>
+    <td>${name}</td>
+    <td><img src="${image}" alt="${name}"></td>
+    <td>0</td>
+    <td><button class="vote-btn">Vote</button></td>
+  `;
 
-// Event listener for the add button
-addButton.addEventListener("click", addCharacter);
+  // Add event listener to the vote button in the new row
+  const newVoteButton = newRow.querySelector(".vote-btn");
+  newVoteButton.addEventListener("click", () => {
+    const countCell = newVoteButton.parentNode.previousElementSibling;
+    const count = parseInt(countCell.textContent);
+    countCell.textContent = count + 1;
+  });
 
-// Get the initial character data
-getCharacters();
+  // Append the new row to the table body
+  animalTable.appendChild(newRow);
+
+  // Reset form inputs
+  nameInput.value = "";
+  imageInput.value = "";
+});
+
+// Add event listener to the form reset button
+resetFormBtn.addEventListener("click", () => {
+  addCharacterForm.reset();
+});
